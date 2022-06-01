@@ -21,12 +21,12 @@ public class CartController {
         return new ArrayList<>();
     }
 
-    @PostMapping
-    public void createCart(CartDto cartDto) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void createCart(@RequestBody CartDto cartDto) {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public CartDto updateCart(CartDto cartDto) {
+    public CartDto updateCart(@RequestBody CartDto cartDto) {
         return new CartDto(1L, "edited user 1");
     }
 
