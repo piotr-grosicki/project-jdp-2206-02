@@ -18,7 +18,7 @@ public class GroupController {
 
     @GetMapping(value = "{groupId}")
     public GroupDto getGroup(@PathVariable Long groupId) {
-        return new GroupDto(1L, 1L, "Group");
+        return new GroupDto(1L, new ArrayList<>(), "Group");
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -27,7 +27,7 @@ public class GroupController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
-        return new GroupDto(1L, 1L, "EditedGroup");
+        return new GroupDto(1L, new ArrayList<>(), "EditedGroup");
     }
 
     @DeleteMapping(value = "{groupId}")
