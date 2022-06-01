@@ -17,14 +17,12 @@ public class UserController {
 
     @PutMapping(value = "/status", consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto updateUserStatus(@RequestBody UserDto userDto){
-        return new UserDto(1L, "test name","test surename" , 0, 12345);
+        return new UserDto(1L, "test name", "test surname", false, 12345);
     }
 
     @PutMapping(value = "/userkey", consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto updateUserKey(@RequestBody UserDto userDto){
-        return new UserDto(1L, "test name","test surename", 1, 12314);
+        return new UserDto(1L, "test name", "test surname", true, 12314);
     }
-
-
 
 }

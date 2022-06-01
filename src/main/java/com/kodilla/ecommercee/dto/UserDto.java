@@ -9,8 +9,8 @@ public class UserDto {
 
     private Long id;
     private String name;
-    private String surename;
-    private int status;
+    private String surname;
+    private boolean status;
     private int userKey;
 
 }
