@@ -1,5 +1,5 @@
 package com.kodilla.ecommercee.dto;
 
 public enum OrderStatus {
-    Pending, Awaiting_payment, Paid, Shipped, In_delivery,  Received, Cancelled
+    PENDING, IN_DELIVERY, COMPLETED, CANCELLED
 }

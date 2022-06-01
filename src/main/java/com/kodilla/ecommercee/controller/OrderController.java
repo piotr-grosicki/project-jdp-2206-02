@@ -23,7 +23,7 @@ public class OrderController {
     @GetMapping(value = "{orderId}")
     public OrderDto getOrder(@PathVariable Long orderId) {
         return new OrderDto(1L, 1L, 1L,  LocalDateTime.of(2022,
-                Month.JUNE, 01, 12, 30, 40), OrderStatus.Pending );
+                Month.JUNE, 01, 12, 30, 40), OrderStatus.PENDING );
     }
 
     @DeleteMapping(value = "{orderId}")
