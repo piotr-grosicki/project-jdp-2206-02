@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -13,7 +14,7 @@ public class CartController {
 
     @GetMapping(value = "{cartId}")
     public CartDto getCart(@PathVariable Long cartId) {
-        return new CartDto(1L, "user 1");
+        return new CartDto(1L, "user 1", new ArrayList<>(Arrays.asList("product 1", "product 2")));
     }
 
     @GetMapping
@@ -27,7 +28,7 @@ public class CartController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public CartDto updateCart(@RequestBody CartDto cartDto) {
-        return new CartDto(1L, "edited user 1");
+        return new CartDto(1L, "edited user 1", new ArrayList<>(Arrays.asList("product 3", "product 4")));
     }
 
     @DeleteMapping(value = "{cartId}")
