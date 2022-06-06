@@ -24,6 +24,10 @@ public class Group {
     @Column(name = "name")
     private String name;
 
+    public Group(String name) {
+        this.name = name;
+    }
+
     /*
     private List<Product> products;
 
