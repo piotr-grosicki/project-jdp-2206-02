@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "products")
 public class Product {
 
@@ -26,6 +24,11 @@ public class Product {
     @NotNull
     @Column(name = "price")
     private Double price;
+
+    public Product(String name, Double price) {
+        this.name = name;
+        this.price = price;
+    }
 
 //    @ManyToOne
 //    @JoinColumn(name = "groupId")
