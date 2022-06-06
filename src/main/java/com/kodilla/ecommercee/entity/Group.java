@@ -17,7 +17,7 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "group_id")
+    @Column(name = "groupId")
     private Long id;
 
     @NotNull
