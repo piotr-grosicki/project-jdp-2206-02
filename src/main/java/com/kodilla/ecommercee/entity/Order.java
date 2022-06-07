@@ -30,7 +30,7 @@ public class Order {
     @CreationTimestamp
     private LocalDateTime created;
 
-    @Column(name = "order_status")
+    @Column(name = "orderStatus")
     private OrderStatus orderStatus;
 
     public Order(Long userId, Long cartId, OrderStatus orderStatus) {
