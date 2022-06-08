@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@Entity(name = "groups")
+@Entity(name = "\"groups\"")
 public class Group {
 
     @Id
