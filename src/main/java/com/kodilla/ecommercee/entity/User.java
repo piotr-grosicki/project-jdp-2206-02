@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -35,13 +37,28 @@ public final class User {
         this.status = status;
         this.userKey = userKey;
     }
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            targetEntity = Cart.class
+    )
+    @JoinColumn(name = "userId")
+    private List<Cart> carts = new ArrayList<>();
 
-    public void setName(String name){
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            targetEntity = Order.class
+    )
+    @JoinColumn(name = "userId")
+    private List<Order> orders = new ArrayList<>();
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setSurname(String surname){
-        this.surname= surname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public void setStatus(boolean status) {
