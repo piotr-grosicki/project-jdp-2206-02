@@ -30,15 +30,15 @@ public class Product {
         this.price = price;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "groupId")
-//    private Group group;
+    @ManyToOne
+    @JoinColumn(name = "groupId")
+    private Group group;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "productsInCart",
-//            joinColumns = {@JoinColumn(name = "productId", referencedColumnName = "productId")},
-//            inverseJoinColumns = {@JoinColumn(name = "cartId", referencedColumnName = "cartId")}
-//    )
-//    private List<Cart> carts;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "productsInCart",
+            joinColumns = {@JoinColumn(name = "productId", referencedColumnName = "productId")},
+            inverseJoinColumns = {@JoinColumn(name = "cartId", referencedColumnName = "cartId")}
+    )
+    private List<Cart> carts;
 }

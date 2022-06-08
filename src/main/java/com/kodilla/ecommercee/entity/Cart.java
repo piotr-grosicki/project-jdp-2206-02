@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -16,17 +16,17 @@ public class Cart {
     @Column(name = "cartId")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "userId", referencedColumnName = "userId")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    private User user;
 
-//    public Cart(User user) {
-//        this.user = user;
-//    }
+    public Cart(User user) {
+        this.user = user;
+    }
 
-//    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carts")
-//    private List<Product> products;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carts")
+    private List<Product> products;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Order order;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Order order;
 }
