@@ -19,15 +19,19 @@ public final class User {
     @Column(name = "userId", unique = true)
     private Long id;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 
+    @NotNull
     @Column(name = "surname")
     private String surname;
 
+    @NotNull
     @Column(name = "status")
     private boolean status;
 
+    @NotNull
     @Column(name = "userKey")
     private int userKey;
 
@@ -40,17 +44,17 @@ public final class User {
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            targetEntity = Cart.class
+            targetEntity = Cart.class,
+            mappedBy = "user"
     )
-    @JoinColumn(name = "userId")
     private List<Cart> carts = new ArrayList<>();
 
     @OneToMany(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
-            targetEntity = Order.class
+            targetEntity = Order.class,
+            mappedBy = "userId"
     )
-    @JoinColumn(name = "userId")
     private List<Order> orders = new ArrayList<>();
 
     public void setName(String name) {
