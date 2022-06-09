@@ -53,7 +53,7 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             targetEntity = Order.class,
-            mappedBy = "userId"
+            mappedBy = "user"
     )
     private List<Order> orders = new ArrayList<>();
 
