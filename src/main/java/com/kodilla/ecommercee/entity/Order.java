@@ -18,13 +18,13 @@ public class Order {
     @Column(name = "orderId")
     private Long id;
 
-    //@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "userId")
-    private Long userId;
+    private User user;
 
-    //@OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "cartId")
-    private Long cartId;
+    private Cart cart;
 
     @Column(name = "created")
     @CreationTimestamp
@@ -33,18 +33,18 @@ public class Order {
     @Column(name = "orderStatus")
     private OrderStatus orderStatus;
 
-    public Order(Long userId, Long cartId, OrderStatus orderStatus) {
-        this.userId = userId;
-        this.cartId = cartId;
+    public Order(User user, Cart cart, OrderStatus orderStatus) {
+        this.user = user;
+        this.cart = cart;
         this.orderStatus = orderStatus;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {
