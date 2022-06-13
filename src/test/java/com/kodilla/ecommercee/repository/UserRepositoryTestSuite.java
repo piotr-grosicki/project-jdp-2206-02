@@ -15,13 +15,13 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class UserRepositoryTest {
+class UserRepositoryTestSuite {
 
     @Autowired
     private UserRepository userRepository;
 
     @Test
-    void findAllTestSuite() {
+    void findAllTest() {
         //Given
         User john = new User("john", "smith", true, 12345);
         Cart cartOne = new Cart(john);
@@ -58,7 +58,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    void findByIdTestSuite() {
+    void findByIdTest() {
         //Given
         User john = new User("john", "smith", true, 12345);
         Cart cartOne = new Cart(john);
@@ -85,7 +85,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    void deleteUserTestSuite(){
+    void deleteUserTest(){
         //Given
         User john = new User("john", "smith", true, 12345);
         Cart cartOne = new Cart(john);
