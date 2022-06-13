@@ -25,12 +25,9 @@ public class Cart {
         this.user = user;
     }
 
-    @ManyToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "carts")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carts")
     private List<Product> products = new ArrayList<Product>();
 
-    @OneToOne(
-            cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Order order;
 }
