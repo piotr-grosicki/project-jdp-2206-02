@@ -38,6 +38,11 @@ public class OrderRepositoryTestSuite {
 
         //Then
         assertTrue(orderRepository.existsById(testOrderId));
+
+        //Cleanup
+        orderRepository.deleteById(testOrderId);
+        cartRepository.deleteById(testCart.getId());
+        userRepository.deleteById(testUser.getId());
     }
 
     @Test
@@ -58,6 +63,11 @@ public class OrderRepositoryTestSuite {
 
         //Then
         assertEquals(OrderStatus.IN_DELIVERY, orderRepository.findById(testOrderId).get().getOrderStatus());
+
+        //Cleanup
+        orderRepository.deleteById(testOrderId);
+        cartRepository.deleteById(testCart.getId());
+        userRepository.deleteById(testUser.getId());
     }
 
     @Test
@@ -79,6 +89,11 @@ public class OrderRepositoryTestSuite {
         assertEquals(1, userRepository.findById(testUserId).get().getOrders().size());
         assertEquals(testOrderId, userRepository.findById(testUserId).get().getOrders().get(0).getId());
         assertEquals(testUserId, orderRepository.findById(testOrderId).get().getUser().getId());
+
+        //Cleanup
+        orderRepository.deleteById(testOrderId);
+        cartRepository.deleteById(testCart.getId());
+        userRepository.deleteById(testUserId);
     }
 
     @Test
@@ -105,6 +120,15 @@ public class OrderRepositoryTestSuite {
 
         //Then
         assertEquals(3, userRepository.findById(testUserId).get().getOrders().size());
+
+        //Cleanup
+        orderRepository.deleteById(testOrder1.getId());
+        orderRepository.deleteById(testOrder2.getId());
+        orderRepository.deleteById(testOrder3.getId());
+        cartRepository.deleteById(testCart1.getId());
+        cartRepository.deleteById(testCart2.getId());
+        cartRepository.deleteById(testCart3.getId());
+        userRepository.deleteById(testUserId);
     }
 
     @Test
@@ -125,6 +149,11 @@ public class OrderRepositoryTestSuite {
         //Then
         assertEquals(testOrderId, cartRepository.findById(testCartId).get().getOrder().getId());
         assertEquals(testCartId, orderRepository.findById(testOrderId).get().getCart().getId());
+
+        //Cleanup
+        orderRepository.deleteById(testOrderId);
+        cartRepository.deleteById(testCartId);
+        userRepository.deleteById(testUser.getId());
     }
 
     @Test
@@ -145,6 +174,10 @@ public class OrderRepositoryTestSuite {
 
         //Then
         assertFalse(orderRepository.existsById(testOrderId));
+
+        //Cleanup
+        cartRepository.deleteById(testCart.getId());
+        userRepository.deleteById(testUser.getId());
     }
 
     @Test
@@ -166,6 +199,10 @@ public class OrderRepositoryTestSuite {
 
         //Then
         assertTrue(userRepository.existsById(testUserId));
+
+        //Cleanup
+        cartRepository.deleteById(testCart.getId());
+        userRepository.deleteById(testUserId);
     }
 
     @Test
@@ -187,5 +224,9 @@ public class OrderRepositoryTestSuite {
 
         //Then
         assertTrue(cartRepository.existsById(testCartId));
+
+        //Cleanup
+        cartRepository.deleteById(testCartId);
+        userRepository.deleteById(testUser.getId());
     }
 }
