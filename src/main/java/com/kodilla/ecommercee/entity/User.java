@@ -43,7 +43,7 @@ public class User {
     }
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             targetEntity = Cart.class,
             mappedBy = "user"
     )
@@ -51,7 +51,7 @@ public class User {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             targetEntity = Order.class,
             mappedBy = "user"
     )
