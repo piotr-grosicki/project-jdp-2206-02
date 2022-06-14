@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,7 +26,8 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    public Product(String name, Double price) {
+    public Product(Long id, String name, Double price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }
@@ -40,5 +42,5 @@ public class Product {
             joinColumns = {@JoinColumn(name = "productId", referencedColumnName = "productId")},
             inverseJoinColumns = {@JoinColumn(name = "cartId", referencedColumnName = "cartId")}
     )
-    private List<Cart> carts;
+    private List<Cart> carts = new ArrayList<>();
 }
