@@ -30,6 +30,12 @@ public class Product {
         this.price = price;
     }
 
+    public Product(String name, Double price, Group group) {
+        this.name = name;
+        this.price = price;
+        this.group = group;
+    }
+
     @ManyToOne
     @JoinColumn(name = "groupId")
     private Group group;
