@@ -139,4 +139,39 @@ class GroupRepositoryTestSuite {
         productRepository.deleteById(product3Id);
 
     }
+
+    @Test
+    void deleteProductTest(){
+
+        //Given
+        Group group = new Group("ptaki", new ArrayList<>());
+
+        Product product = new Product("wrobel", 12.50, group);
+        Product product2 = new Product("kanarek", 15.25, group);
+
+        group.getProducts().add(product);
+        group.getProducts().add(product2);
+
+        groupRepository.save(group);
+
+        productRepository.save(product);
+        productRepository.save(product2);
+        Long productId2 = product2.getId();
+
+        //When
+        Long productId = product.getId();
+        productRepository.deleteById(productId);
+        Long groupId = group.getId();
+        Optional<Group> resultGroup = groupRepository.findById(groupId);
+
+
+        //Then
+        assertTrue(resultGroup.isPresent());
+
+        //CleanUp
+        groupRepository.deleteById(groupId);
+        productRepository.deleteById(productId2);
+
+    }
+
 }
