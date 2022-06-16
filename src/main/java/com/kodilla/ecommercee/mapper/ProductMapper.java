@@ -11,11 +11,11 @@ import java.util.stream.Collectors;
 public class ProductMapper {
 
     public Product mapToProduct(final ProductDto productDto){
-        return new Product(
-                productDto.getId(),
-                productDto.getName(),
-                productDto.getPrice()
-        );
+        return Product.builder()
+                .id(productDto.getId())
+                .name(productDto.getName())
+                .price(productDto.getPrice())
+                .build();
     }
 
     public ProductDto mapToProductDto(final Product product){

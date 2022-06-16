@@ -1,5 +1,7 @@
 package com.kodilla.ecommercee.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "products")
 public class Product {
@@ -25,12 +29,6 @@ public class Product {
     @NotNull
     @Column(name = "price")
     private Double price;
-
-    public Product(Long id, String name, Double price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
 
     @ManyToOne
     @JoinColumn(name = "groupId")
