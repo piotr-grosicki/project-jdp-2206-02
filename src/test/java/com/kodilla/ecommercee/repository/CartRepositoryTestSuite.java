@@ -57,13 +57,14 @@ class CartRepositoryTestSuite {
         assertTrue(cartRepository.findById(cart2.getId()).isPresent());
         assertTrue(cartRepository.findById(cart3.getId()).isPresent());
 
-        cartRepository.deleteById(cart1.getId());
-        cartRepository.deleteById(cart2.getId());
-        cartRepository.deleteById(cart3.getId());
-
-        userRepository.deleteById(user1.getId());
-        userRepository.deleteById(user2.getId());
-        userRepository.deleteById(user3.getId());
+        //Clean Up
+//        cartRepository.deleteById(cart1.getId());
+//        cartRepository.deleteById(cart2.getId());
+//        cartRepository.deleteById(cart3.getId());
+//
+//        userRepository.deleteById(user1.getId());
+//        userRepository.deleteById(user2.getId());
+//        userRepository.deleteById(user3.getId());
     }
 
     @Test
@@ -93,11 +94,11 @@ class CartRepositoryTestSuite {
         assertEquals(cartRepository.findAll(), testListCart);
 
         //CleanUp
-        cartRepository.deleteById(cart1.getId());
-        cartRepository.deleteById(cart2.getId());
-
-        userRepository.deleteById(user1.getId());
-        userRepository.deleteById(user2.getId());
+//        cartRepository.deleteById(cart1.getId());
+//        cartRepository.deleteById(cart2.getId());
+//
+//        userRepository.deleteById(user1.getId());
+//        userRepository.deleteById(user2.getId());
     }
 
     @Test
@@ -127,9 +128,9 @@ class CartRepositoryTestSuite {
         assertTrue(cartRepository.findById(cart.getId()).get().getProducts().containsAll(testListProduct));
 
         //CleanUp
-        productRepository.deleteById(product1.getId());
-        productRepository.deleteById(product2.getId());
-        cartRepository.deleteById(cart.getId());
+//        productRepository.deleteById(product1.getId());
+//        productRepository.deleteById(product2.getId());
+//        cartRepository.deleteById(cart.getId());
     }
 
     @Test
@@ -145,6 +146,33 @@ class CartRepositoryTestSuite {
         //Then
         assertFalse(cartRepository.findById(cart1.getId()).isPresent());
 
+    }
+    @Test
+    public void shouldDeleteCartNotProduct() {
+        //Given
+        Product product1 = new Product("product1", 1.99);
+        Product product2 = new Product("product2", 2.99);
+        Cart cart = new Cart();
+
+        cart.getProducts().add(product1);
+
+        cartRepository.save(cart);
+        productRepository.save(product1);
+        productRepository.save(product2);
+
+        List testListProduct = new ArrayList<Product>();
+        testListProduct.add(product1);
+        testListProduct.add(product2);
+
+        // When
+        Cart cartToUpdate = cartRepository.findById(cart.getId()).get();
+        cartToUpdate.getProducts().add(product2);
+        cartRepository.save(cartToUpdate);
+        cartRepository.deleteById(cart.getId());
+
+        //Then
+        assertTrue(productRepository.existsById(product1.getId()));
+        assertTrue(productRepository.existsById(product1.getId()));
     }
 
 }
