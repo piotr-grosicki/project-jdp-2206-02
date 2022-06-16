@@ -29,6 +29,6 @@ public class Cart {
             (mappedBy = "carts")
     private List<Product> products = new ArrayList<Product>();
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "cart")
     private Order order;
 }
