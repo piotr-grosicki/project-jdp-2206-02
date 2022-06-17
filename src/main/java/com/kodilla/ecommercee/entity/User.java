@@ -42,8 +42,7 @@ public class User {
         this.userKey = userKey;
     }
     @OneToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             targetEntity = Cart.class,
             mappedBy = "user"
     )
