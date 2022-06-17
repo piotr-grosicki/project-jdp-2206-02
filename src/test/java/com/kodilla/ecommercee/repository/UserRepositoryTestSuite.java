@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.dto.OrderStatus;
 import com.kodilla.ecommercee.entity.Cart;
 import com.kodilla.ecommercee.entity.Order;
 import com.kodilla.ecommercee.entity.User;
+import org.aspectj.weaver.ast.Or;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ class UserRepositoryTestSuite {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Test
     void findAllTest() {
@@ -102,6 +109,44 @@ class UserRepositoryTestSuite {
         Optional<User> expectedNotJohn = userRepository.findById(johnId);
 
         //Then
-        Assert.assertFalse(expectedNotJohn.isPresent());
+        assertFalse(expectedNotJohn.isPresent());
+    }
+
+    @Test
+    void shouldDeleteUserShouldNotDeleteCartTest(){
+        //Given
+        User john = new User("john", "smith", true, 12345);
+        Cart cartOne = new Cart(john);
+        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
+        john.getCarts().add(cartOne);
+        john.getOrders().add(orderOne);
+
+        //When
+        userRepository.save(john);
+        Long johnCart = john.getCarts().get(0).getId();
+        userRepository.delete(john);
+        Optional<Cart> expectedJohnCart = cartRepository.findById(johnCart);
+
+        //Then
+        assertTrue(expectedJohnCart.isPresent());
+    }
+
+    @Test
+    void shouldDeleteUserShouldNotDeleteOrderTest(){
+        //Given
+        User john = new User("john", "smith", true, 12345);
+        Cart cartOne = new Cart(john);
+        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
+        john.getCarts().add(cartOne);
+        john.getOrders().add(orderOne);
+
+        //When
+        userRepository.save(john);
+        Long johnOrder = john.getOrders().get(0).getId();
+        userRepository.delete(john);
+        Optional<Order> expectedJohnOrder = orderRepository.findById(johnOrder);
+
+        //Then
+        assertTrue(expectedJohnOrder.isPresent());
     }
 }

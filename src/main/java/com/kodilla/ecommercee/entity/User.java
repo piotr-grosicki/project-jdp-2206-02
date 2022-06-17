@@ -42,7 +42,7 @@ public class User {
         this.userKey = userKey;
     }
     @OneToMany(
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY,
             targetEntity = Cart.class,
             mappedBy = "user"
@@ -50,6 +50,7 @@ public class User {
     private List<Cart> carts = new ArrayList<>();
 
     @OneToMany(
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.EAGER,
             targetEntity = Order.class,
             mappedBy = "user"
