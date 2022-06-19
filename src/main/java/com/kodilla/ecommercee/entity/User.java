@@ -51,4 +51,12 @@ public class User {
             mappedBy = "user"
     )
     private List<Order> orders = new ArrayList<>();
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public void setUserKey(int userKey) {
+        this.userKey = userKey;
+    }
 }
