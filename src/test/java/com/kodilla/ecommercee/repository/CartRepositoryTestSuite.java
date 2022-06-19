@@ -151,8 +151,8 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCartNotProduct() {
         //Given
-        Product product1 = new Product("product1", 1.99, new Group("testGroup", new ArrayList<>()));
-        Product product2 = new Product("product2", 2.99, new Group("testGroup", new ArrayList<>()));
+        Product product1 = new Product("product1", 1.99, Group.builder().name("testGroup").products(new ArrayList<>()).build());
+        Product product2 = new Product("product2", 2.99, Group.builder().name("testGroup").products(new ArrayList<>()).build());
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
