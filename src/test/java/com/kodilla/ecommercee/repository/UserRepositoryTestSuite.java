@@ -4,7 +4,6 @@ import com.kodilla.ecommercee.dto.OrderStatus;
 import com.kodilla.ecommercee.entity.Cart;
 import com.kodilla.ecommercee.entity.Order;
 import com.kodilla.ecommercee.entity.User;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -102,6 +101,6 @@ class UserRepositoryTestSuite {
         Optional<User> expectedNotJohn = userRepository.findById(johnId);
 
         //Then
-        Assert.assertFalse(expectedNotJohn.isPresent());
+        assertFalse(expectedNotJohn.isPresent());
     }
 }

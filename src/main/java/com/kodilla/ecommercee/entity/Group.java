@@ -29,19 +29,8 @@ public class Group {
 
     @OneToMany(
             targetEntity = Product.class,
-            mappedBy = "group",
-            fetch = FetchType.LAZY
+            mappedBy = "group"
     )
     private List<Product> products;
-
-    public Group(String name, List<Product> products) {
-        this.name = name;
-        this.products = products;
-    }
-
-
-
-
-
 
 }
