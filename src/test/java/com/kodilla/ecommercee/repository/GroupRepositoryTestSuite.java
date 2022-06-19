@@ -29,9 +29,20 @@ class GroupRepositoryTestSuite {
     void findAllGroupsTest(){
 
         //Given
-        Group group = new Group("mieso", new ArrayList<>());
-        Group group2 = new Group("nabial", new ArrayList<>());
-        Group group3 = new Group("slodycze", new ArrayList<>());
+        Group group = Group.builder()
+                .name("mieso")
+                .products(new ArrayList<>())
+                .build();
+
+        Group group2 = Group.builder()
+                .name("nabial")
+                .products(new ArrayList<>())
+                .build();
+
+        Group group3 = Group.builder()
+                .name("slodycze")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = new Product("kielbasa", 12.50, group);
         Product product2 = new Product("szynka", 15.25, group);
@@ -72,7 +83,10 @@ class GroupRepositoryTestSuite {
     void findGroupByIdTest(){
 
         //Given
-        Group group = new Group("mieso", new ArrayList<>());
+        Group group = Group.builder()
+                .name("mieso")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = new Product("kielbasa", 12.50, group);
         Product product2 = new Product("szynka", 15.25, group);
@@ -99,7 +113,10 @@ class GroupRepositoryTestSuite {
     @Test
     void updateGroupTest(){
         //Given
-        Group group = new Group("mieso", new ArrayList<>());
+        Group group = Group.builder()
+                .name("mieso")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = new Product("kielbasa", 12.50, group);
         Product product2 = new Product("szynka", 15.25, group);
@@ -144,7 +161,10 @@ class GroupRepositoryTestSuite {
     void deleteProductTest(){
 
         //Given
-        Group group = new Group("ptaki", new ArrayList<>());
+        Group group = Group.builder()
+                .name("ptaki")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = new Product("wrobel", 12.50, group);
         Product product2 = new Product("kanarek", 15.25, group);
@@ -164,14 +184,11 @@ class GroupRepositoryTestSuite {
         Long groupId = group.getId();
         Optional<Group> resultGroup = groupRepository.findById(groupId);
 
-
         //Then
         assertTrue(resultGroup.isPresent());
 
         //CleanUp
         groupRepository.deleteById(groupId);
         productRepository.deleteById(productId2);
-
     }
-
 }
