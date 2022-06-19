@@ -42,7 +42,6 @@ public class User {
         this.userKey = userKey;
     }
     @OneToMany(
-            fetch = FetchType.EAGER,
             targetEntity = Cart.class,
             mappedBy = "user"
     )

@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.repository;
 
 import com.kodilla.ecommercee.entity.Cart;
+import com.kodilla.ecommercee.entity.Group;
 import com.kodilla.ecommercee.entity.Product;
 import com.kodilla.ecommercee.entity.User;
 import org.junit.jupiter.api.Test;
@@ -58,13 +59,13 @@ class CartRepositoryTestSuite {
         assertTrue(cartRepository.findById(cart3.getId()).isPresent());
 
         //Clean Up
-//        cartRepository.deleteById(cart1.getId());
-//        cartRepository.deleteById(cart2.getId());
-//        cartRepository.deleteById(cart3.getId());
-//
-//        userRepository.deleteById(user1.getId());
-//        userRepository.deleteById(user2.getId());
-//        userRepository.deleteById(user3.getId());
+        cartRepository.deleteById(cart1.getId());
+        cartRepository.deleteById(cart2.getId());
+        cartRepository.deleteById(cart3.getId());
+
+        userRepository.deleteById(user1.getId());
+        userRepository.deleteById(user2.getId());
+        userRepository.deleteById(user3.getId());
     }
 
     @Test
@@ -94,18 +95,18 @@ class CartRepositoryTestSuite {
         assertEquals(cartRepository.findAll(), testListCart);
 
         //CleanUp
-//        cartRepository.deleteById(cart1.getId());
-//        cartRepository.deleteById(cart2.getId());
-//
-//        userRepository.deleteById(user1.getId());
-//        userRepository.deleteById(user2.getId());
+        cartRepository.deleteById(cart1.getId());
+        cartRepository.deleteById(cart2.getId());
+
+        userRepository.deleteById(user1.getId());
+        userRepository.deleteById(user2.getId());
     }
 
     @Test
     public void shouldUpdateCart() {
         //Given
-        Product product1 = new Product("product1", 1.99);
-        Product product2 = new Product("product2", 2.99);
+        Product product1 = new Product("product1", 1.99, new Group());
+        Product product2 = new Product("product2", 2.99, new Group());
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
@@ -128,9 +129,9 @@ class CartRepositoryTestSuite {
         assertTrue(cartRepository.findById(cart.getId()).get().getProducts().containsAll(testListProduct));
 
         //CleanUp
-//        productRepository.deleteById(product1.getId());
-//        productRepository.deleteById(product2.getId());
-//        cartRepository.deleteById(cart.getId());
+        productRepository.deleteById(product1.getId());
+        productRepository.deleteById(product2.getId());
+        cartRepository.deleteById(cart.getId());
     }
 
     @Test
@@ -150,8 +151,8 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCartNotProduct() {
         //Given
-        Product product1 = new Product("product1", 1.99);
-        Product product2 = new Product("product2", 2.99);
+        Product product1 = new Product("product1", 1.99, new Group("testGroup", new ArrayList<>()));
+        Product product2 = new Product("product2", 2.99, new Group("testGroup", new ArrayList<>()));
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);

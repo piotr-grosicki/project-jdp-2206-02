@@ -25,9 +25,8 @@ public class Cart {
         this.user = user;
     }
 
-    @ManyToMany
-            (mappedBy = "carts")
-    private List<Product> products = new ArrayList<Product>();
+    @ManyToMany(mappedBy = "carts")
+    private List<Product> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "cart")
     private Order order;
