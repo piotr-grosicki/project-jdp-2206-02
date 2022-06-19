@@ -22,7 +22,7 @@ public class Order {
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cartId")
     private Cart cart;
 

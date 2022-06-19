@@ -53,6 +53,7 @@ class ProductRepositoryTestSuite {
         productRepository.deleteById(appleId);
         productRepository.deleteById(bananaId);
         groupRepository.delete(fruits);
+
     }
 
     @Test
