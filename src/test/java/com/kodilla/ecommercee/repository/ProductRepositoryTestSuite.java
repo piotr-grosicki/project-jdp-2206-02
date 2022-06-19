@@ -31,7 +31,7 @@ class ProductRepositoryTestSuite {
     @Test
     void findAllProducts_CartShouldBeEmpty_GroupShouldNotBeEmpty() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
         Product apple = new Product("Apple", 3.20, fruits);
         Product banana = new Product("Banana", 4.10, fruits);
 
@@ -59,7 +59,7 @@ class ProductRepositoryTestSuite {
     @Test
     void findProductById() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
         Product apple = new Product("Apple", 3.20, fruits);
 
         //When
@@ -79,7 +79,7 @@ class ProductRepositoryTestSuite {
     @Test
     void updateProduct() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
         Product apple = new Product("Apple", 3.20, fruits);
 
         //When
@@ -103,7 +103,7 @@ class ProductRepositoryTestSuite {
     @Test
     void deleteProductById() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
         Product apple = new Product("Apple", 3.20, fruits);
 
         //When
