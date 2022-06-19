@@ -1,5 +1,7 @@
 package com.kodilla.ecommercee.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +10,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity(name = "users")
 public class User {
@@ -35,12 +39,6 @@ public class User {
     @Column(name = "userKey")
     private int userKey;
 
-    public User(String name, String surname, boolean status, int userKey){
-        this.name = name;
-        this.surname = surname;
-        this.status = status;
-        this.userKey = userKey;
-    }
     @OneToMany(
             targetEntity = Cart.class,
             mappedBy = "user"
@@ -53,20 +51,4 @@ public class User {
             mappedBy = "user"
     )
     private List<Order> orders = new ArrayList<>();
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public void setUserKey(int userKey) {
-        this.userKey = userKey;
-    }
 }
