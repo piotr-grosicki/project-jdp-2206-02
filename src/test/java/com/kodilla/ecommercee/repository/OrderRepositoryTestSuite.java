@@ -7,9 +7,11 @@ import com.kodilla.ecommercee.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Transactional
 @SpringBootTest
 public class OrderRepositoryTestSuite {
 
@@ -76,6 +78,8 @@ public class OrderRepositoryTestSuite {
         User user = new User("John", "Smith", true, 1);
         Cart cart = new Cart(user);
         Order order = new Order(user, cart, OrderStatus.PENDING);
+        user.getCarts().add(cart);
+        user.getOrders().add(order);
 
         //When
         User testUser = userRepository.save(user);
@@ -106,6 +110,12 @@ public class OrderRepositoryTestSuite {
         Order order1 = new Order(user, cart1, OrderStatus.PENDING);
         Order order2 = new Order(user, cart2, OrderStatus.IN_DELIVERY);
         Order order3 = new Order(user, cart3, OrderStatus.COMPLETED);
+        user.getCarts().add(cart1);
+        user.getCarts().add(cart2);
+        user.getCarts().add(cart3);
+        user.getOrders().add(order1);
+        user.getOrders().add(order2);
+        user.getOrders().add(order3);
 
         //When
         User testUser = userRepository.save(user);
@@ -137,6 +147,9 @@ public class OrderRepositoryTestSuite {
         User user = new User("John", "Smith", true, 1);
         Cart cart = new Cart(user);
         Order order = new Order(user, cart, OrderStatus.PENDING);
+        user.getCarts().add(cart);
+        user.getOrders().add(order);
+        cart.setOrder(order);
 
         //When
         User testUser = userRepository.save(user);

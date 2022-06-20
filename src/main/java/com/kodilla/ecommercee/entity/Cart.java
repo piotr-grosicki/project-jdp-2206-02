@@ -29,4 +29,8 @@ public class Cart {
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "cart")
     private Order order;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
