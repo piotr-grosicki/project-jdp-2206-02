@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -24,10 +25,10 @@ public class Cart {
         this.user = user;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carts")
-    private List<Product> products;
+    @ManyToMany(mappedBy = "carts")
+    private List<Product> products = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "cart")
+    @OneToOne(mappedBy = "cart")
     private Order order;
 
     public void setOrder(Order order) {

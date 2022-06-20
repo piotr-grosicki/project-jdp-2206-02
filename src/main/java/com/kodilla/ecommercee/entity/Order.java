@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.entity;
 
 import com.kodilla.ecommercee.dto.OrderStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,8 +10,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 @Entity(name = "orders")
 public class Order {
 
@@ -26,8 +30,8 @@ public class Order {
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    @Column(name = "created")
     @CreationTimestamp
+    @Column(name = "created", nullable = false, updatable = false)
     private LocalDateTime created;
 
     @Column(name = "orderStatus")

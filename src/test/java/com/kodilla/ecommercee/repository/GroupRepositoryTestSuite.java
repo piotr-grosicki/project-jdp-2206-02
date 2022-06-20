@@ -29,9 +29,20 @@ class GroupRepositoryTestSuite {
     void findAllGroupsTest(){
 
         //Given
-        Group group = new Group("mieso", new ArrayList<>());
-        Group group2 = new Group("nabial", new ArrayList<>());
-        Group group3 = new Group("slodycze", new ArrayList<>());
+        Group group = Group.builder()
+                .name("mieso")
+                .products(new ArrayList<>())
+                .build();
+
+        Group group2 = Group.builder()
+                .name("nabial")
+                .products(new ArrayList<>())
+                .build();
+
+        Group group3 = Group.builder()
+                .name("slodycze")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = Product.builder().name("kielbasa").price(12.5).group(group).build();
         Product product2 = Product.builder().name("szynka").price(15.25).group(group).build();
@@ -71,7 +82,10 @@ class GroupRepositoryTestSuite {
     void findGroupByIdTest(){
 
         //Given
-        Group group = new Group("mieso", new ArrayList<>());
+        Group group = Group.builder()
+                .name("mieso")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = Product.builder().name("kielbasa").price(12.5).group(group).build();
         Product product2 = Product.builder().name("szynka").price(15.25).group(group).build();
@@ -97,7 +111,10 @@ class GroupRepositoryTestSuite {
     @Test
     void updateGroupTest(){
         //Given
-        Group group = new Group("mieso", new ArrayList<>());
+        Group group = Group.builder()
+                .name("mieso")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = Product.builder().name("kielbasa").price(12.5).group(group).build();
         Product product2 = Product.builder().name("szynka").price(15.25).group(group).build();
@@ -141,7 +158,10 @@ class GroupRepositoryTestSuite {
     void deleteProductTest(){
 
         //Given
-        Group group = new Group("ptaki", new ArrayList<>());
+        Group group = Group.builder()
+                .name("ptaki")
+                .products(new ArrayList<>())
+                .build();
 
         Product product = Product.builder().name("wrobel").price(12.50).group(group).build();
         Product product2 = Product.builder().name("kanarek").price(15.25).group(group).build();
@@ -159,7 +179,6 @@ class GroupRepositoryTestSuite {
         productRepository.deleteById(productId);
         Long groupId = group.getId();
         Optional<Group> resultGroup = groupRepository.findById(groupId);
-
 
         //Then
         assertTrue(resultGroup.isPresent());
