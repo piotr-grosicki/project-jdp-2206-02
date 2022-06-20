@@ -44,12 +44,12 @@ class GroupRepositoryTestSuite {
                 .products(new ArrayList<>())
                 .build();
 
-        Product product = new Product("kielbasa", 12.50, group);
-        Product product2 = new Product("szynka", 15.25, group);
-        Product product3 = new Product("mleko", 3.39, group2);
-        Product product4 = new Product("czekolada", 5.29, group3);
-        Product product5 = new Product("cukierki", 2.12, group3);
-        Product product6 = new Product("baton", 1.12, group3);
+        Product product = Product.builder().name("kielbasa").price(12.5).group(group).build();
+        Product product2 = Product.builder().name("szynka").price(15.25).group(group).build();
+        Product product3 = Product.builder().name("mleko").price(3.39).group(group2).build();
+        Product product4 = Product.builder().name("czekolada").price(5.29).group(group3).build();
+        Product product5 = Product.builder().name("cukierki").price(2.12).group(group3).build();
+        Product product6 = Product.builder().name("baton").price(1.12).group(group3).build();
 
         group.getProducts().add(product);
         group.getProducts().add(product2);
@@ -76,7 +76,6 @@ class GroupRepositoryTestSuite {
         groupRepository.deleteById(id);
         groupRepository.deleteById(id1);
         groupRepository.deleteById(id2);
-
     }
 
     @Test
@@ -88,8 +87,8 @@ class GroupRepositoryTestSuite {
                 .products(new ArrayList<>())
                 .build();
 
-        Product product = new Product("kielbasa", 12.50, group);
-        Product product2 = new Product("szynka", 15.25, group);
+        Product product = Product.builder().name("kielbasa").price(12.5).group(group).build();
+        Product product2 = Product.builder().name("szynka").price(15.25).group(group).build();
 
         group.getProducts().add(product);
         group.getProducts().add(product2);
@@ -107,7 +106,6 @@ class GroupRepositoryTestSuite {
 
         //CleanUp
         groupRepository.deleteById(id);
-
     }
 
     @Test
@@ -118,8 +116,8 @@ class GroupRepositoryTestSuite {
                 .products(new ArrayList<>())
                 .build();
 
-        Product product = new Product("kielbasa", 12.50, group);
-        Product product2 = new Product("szynka", 15.25, group);
+        Product product = Product.builder().name("kielbasa").price(12.5).group(group).build();
+        Product product2 = Product.builder().name("szynka").price(15.25).group(group).build();
 
         group.getProducts().add(product);
         group.getProducts().add(product2);
@@ -134,7 +132,7 @@ class GroupRepositoryTestSuite {
         Long product2Id = product2.getId();
 
         //When
-        Product product3 = new Product("boczek", 11.55, group);
+        Product product3 = Product.builder().name("boczek").price(11.55).group(group).build();
         group.getProducts().add(product3);
         productRepository.save(product3);
         Long product3Id = product3.getId();
@@ -154,7 +152,6 @@ class GroupRepositoryTestSuite {
         productRepository.deleteById(productId);
         productRepository.deleteById(product2Id);
         productRepository.deleteById(product3Id);
-
     }
 
     @Test
@@ -166,9 +163,8 @@ class GroupRepositoryTestSuite {
                 .products(new ArrayList<>())
                 .build();
 
-        Product product = new Product("wrobel", 12.50, group);
-        Product product2 = new Product("kanarek", 15.25, group);
-
+        Product product = Product.builder().name("wrobel").price(12.50).group(group).build();
+        Product product2 = Product.builder().name("kanarek").price(15.25).group(group).build();
         group.getProducts().add(product);
         group.getProducts().add(product2);
 

@@ -32,12 +32,13 @@ class ProductRepositoryTestSuite {
     void findAllProducts_CartShouldBeEmpty_GroupShouldNotBeEmpty() {
         //Given
         Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
-        Product apple = new Product("Apple", 3.20, fruits);
-        Product banana = new Product("Banana", 4.10, fruits);
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
+        Product banana = Product.builder().name("Banana").price(4.10).group(fruits).build();
 
         //When
         productRepository.save(apple);
         productRepository.save(banana);
+        groupRepository.save(fruits);
         Long appleId = apple.getId();
         Long bananaId = banana.getId();
         List<Group> groupList = groupRepository.findAll();
@@ -60,7 +61,7 @@ class ProductRepositoryTestSuite {
     void findProductById() {
         //Given
         Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
-        Product apple = new Product("Apple", 3.20, fruits);
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
 
         //When
         groupRepository.save(fruits);
@@ -80,7 +81,7 @@ class ProductRepositoryTestSuite {
     void updateProduct() {
         //Given
         Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
-        Product apple = new Product("Apple", 3.20, fruits);
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
 
         //When
         productRepository.save(apple);
@@ -104,7 +105,7 @@ class ProductRepositoryTestSuite {
     void deleteProductById() {
         //Given
         Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
-        Product apple = new Product("Apple", 3.20, fruits);
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
 
         //When
         productRepository.save(apple);

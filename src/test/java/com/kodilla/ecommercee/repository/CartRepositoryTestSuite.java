@@ -105,8 +105,8 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldUpdateCart() {
         //Given
-        Product product1 = new Product("product1", 1.99, new Group());
-        Product product2 = new Product("product2", 2.99, new Group());
+        Product product1 = Product.builder().name("product1").price(1.99).group(new Group()).build();
+        Product product2 = Product.builder().name("product2").price(2.99).group(new Group()).build();
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
@@ -151,8 +151,8 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCartNotProduct() {
         //Given
-        Product product1 = new Product("product1", 1.99, Group.builder().name("testGroup").products(new ArrayList<>()).build());
-        Product product2 = new Product("product2", 2.99, Group.builder().name("testGroup").products(new ArrayList<>()).build());
+        Product product1 = Product.builder().name("product1").price(1.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
+        Product product2 = Product.builder().name("product2").price(2.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
