@@ -4,13 +4,9 @@ import com.kodilla.ecommercee.dto.OrderStatus;
 import com.kodilla.ecommercee.entity.Cart;
 import com.kodilla.ecommercee.entity.Order;
 import com.kodilla.ecommercee.entity.User;
-import org.aspectj.weaver.ast.Or;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -109,51 +105,5 @@ class UserRepositoryTestSuite {
 
         //Then
         assertFalse(expectedNotJohn.isPresent());
-    }
-
-    @Test
-    void shouldDeleteUserShouldNotDeleteCartTest(){
-        //Given
-        User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
-        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
-        john.getCarts().add(cartOne);
-        john.getOrders().add(orderOne);
-
-        //When
-        Long johnId = userRepository.save(john).getId();
-        Long johnCartId = cartRepository.save(cartOne).getId();
-        Long johnOrderId = orderRepository.save(orderOne).getId();
-        userRepository.deleteById(johnId);
-
-        //Then
-        assertTrue(cartRepository.existsById(johnCartId));
-
-        //Cleanup
-        orderRepository.deleteById(johnOrderId);
-        cartRepository.deleteById(johnCartId);
-    }
-
-    @Test
-    void shouldDeleteUserShouldNotDeleteOrderTest(){
-        //Given
-        User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
-        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
-        john.getCarts().add(cartOne);
-        john.getOrders().add(orderOne);
-
-        //When
-        Long johnId = userRepository.save(john).getId();
-        Long johnCartId = cartRepository.save(cartOne).getId();
-        Long johnOrderId = orderRepository.save(orderOne).getId();
-        userRepository.deleteById(johnId);
-
-        //Then
-        assertTrue(orderRepository.existsById(johnOrderId));
-
-        //Cleanup
-        orderRepository.deleteById(johnOrderId);
-        cartRepository.deleteById(johnCartId);
     }
 }
