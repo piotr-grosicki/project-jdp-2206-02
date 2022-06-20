@@ -16,7 +16,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Transactional
 @SpringBootTest
 class UserRepositoryTestSuite {
 
@@ -49,12 +48,9 @@ class UserRepositoryTestSuite {
         paul.getOrders().add(orderThree);
 
         //When
-        userRepository.save(john);
-        userRepository.save(sam);
-        userRepository.save(paul);
-        Long johnId = john.getId();
-        Long samId = sam.getId();
-        Long paulId = paul.getId();
+        Long johnId = userRepository.save(john).getId();
+        Long samId = userRepository.save(sam).getId();
+        Long paulId = userRepository.save(paul).getId();
         List<User> userList = userRepository.findAll();
 
         //Then
@@ -76,8 +72,9 @@ class UserRepositoryTestSuite {
         john.getOrders().add(orderOne);
 
         //When
-        userRepository.save(john);
-        Long johnId = john.getId();
+        Long johnId = userRepository.save(john).getId();
+        cartRepository.save(cartOne);
+        orderRepository.save(orderOne);
         User expectedJohn = userRepository.findById(johnId).get();
 
         //Then
@@ -90,6 +87,8 @@ class UserRepositoryTestSuite {
         assertTrue(expectedJohn.isStatus());
 
         //Cleanup
+        orderRepository.deleteById(orderOne.getId());
+        cartRepository.deleteById(cartOne.getId());
         userRepository.deleteById(johnId);
     }
 
@@ -122,13 +121,17 @@ class UserRepositoryTestSuite {
         john.getOrders().add(orderOne);
 
         //When
-        userRepository.save(john);
-        Long johnCart = john.getCarts().get(0).getId();
-        userRepository.delete(john);
-        Optional<Cart> expectedJohnCart = cartRepository.findById(johnCart);
+        Long johnId = userRepository.save(john).getId();
+        Long johnCartId = cartRepository.save(cartOne).getId();
+        Long johnOrderId = orderRepository.save(orderOne).getId();
+        userRepository.deleteById(johnId);
 
         //Then
-        assertTrue(expectedJohnCart.isPresent());
+        assertTrue(cartRepository.existsById(johnCartId));
+
+        //Cleanup
+        orderRepository.deleteById(johnOrderId);
+        cartRepository.deleteById(johnCartId);
     }
 
     @Test
@@ -141,12 +144,16 @@ class UserRepositoryTestSuite {
         john.getOrders().add(orderOne);
 
         //When
-        userRepository.save(john);
-        Long johnOrder = john.getOrders().get(0).getId();
-        userRepository.delete(john);
-        Optional<Order> expectedJohnOrder = orderRepository.findById(johnOrder);
+        Long johnId = userRepository.save(john).getId();
+        Long johnCartId = cartRepository.save(cartOne).getId();
+        Long johnOrderId = orderRepository.save(orderOne).getId();
+        userRepository.deleteById(johnId);
 
         //Then
-        assertTrue(expectedJohnOrder.isPresent());
+        assertTrue(orderRepository.existsById(johnOrderId));
+
+        //Cleanup
+        orderRepository.deleteById(johnOrderId);
+        cartRepository.deleteById(johnCartId);
     }
 }

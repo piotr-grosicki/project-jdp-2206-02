@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Transactional
 @SpringBootTest
 public class OrderRepositoryTestSuite {
 
@@ -149,7 +148,6 @@ public class OrderRepositoryTestSuite {
         Order order = new Order(user, cart, OrderStatus.PENDING);
         user.getCarts().add(cart);
         user.getOrders().add(order);
-        cart.setOrder(order);
 
         //When
         User testUser = userRepository.save(user);
