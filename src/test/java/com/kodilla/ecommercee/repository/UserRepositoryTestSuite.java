@@ -7,6 +7,8 @@ import com.kodilla.ecommercee.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,9 +67,9 @@ class UserRepositoryTestSuite {
         user3.getOrders().add(orderThree);
 
         //When
-        Long johnId = userRepository.save(john).getId();
-        Long samId = userRepository.save(sam).getId();
-        Long paulId = userRepository.save(paul).getId();
+        Long user1Id = userRepository.save(user1).getId();
+        Long user2Id = userRepository.save(user2).getId();
+        Long user3Id = userRepository.save(user3).getId();
         List<User> userList = userRepository.findAll();
 
         //Then
@@ -96,10 +98,10 @@ class UserRepositoryTestSuite {
         user.getOrders().add(orderOne);
 
         //When
-        Long johnId = userRepository.save(john).getId();
+        Long userId = userRepository.save(user).getId();
         cartRepository.save(cartOne);
         orderRepository.save(orderOne);
-        User expectedJohn = userRepository.findById(johnId).get();
+        User expectedJohn = userRepository.findById(userId).get();
 
         //Then
         assertEquals(user.getId(), expectedJohn.getId());
@@ -113,7 +115,7 @@ class UserRepositoryTestSuite {
         //Cleanup
         orderRepository.deleteById(orderOne.getId());
         cartRepository.deleteById(cartOne.getId());
-        userRepository.deleteById(johnId);
+        userRepository.deleteById(userId);
     }
 
     @Test
@@ -133,10 +135,9 @@ class UserRepositoryTestSuite {
         user.getOrders().add(orderOne);
 
         //When
-        userRepository.save(user);
-        Long johnId = user.getId();
-        userRepository.delete(user);
-        Optional<User> expectedNotJohn = userRepository.findById(johnId);
+        Long userId = userRepository.save(user).getId();
+        userRepository.deleteById(userId);
+        Optional<User> expectedNotJohn = userRepository.findById(userId);
 
         //Then
         assertFalse(expectedNotJohn.isPresent());

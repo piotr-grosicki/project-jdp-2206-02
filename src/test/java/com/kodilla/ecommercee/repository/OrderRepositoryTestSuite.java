@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -87,6 +89,8 @@ public class OrderRepositoryTestSuite {
                 .name("userName1")
                 .surname("userSurname1")
                 .status(true)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
                 .userKey(1)
                 .build();
         Cart cart = Cart.builder().user(user).build();
@@ -121,6 +125,8 @@ public class OrderRepositoryTestSuite {
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
                 .build();
         Cart cart1 = Cart.builder().user(user).build();
         Cart cart2 = Cart.builder().user(user).build();
@@ -167,6 +173,8 @@ public class OrderRepositoryTestSuite {
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
+                .orders(new ArrayList<>())
+                .carts(new ArrayList<>())
                 .build();
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);

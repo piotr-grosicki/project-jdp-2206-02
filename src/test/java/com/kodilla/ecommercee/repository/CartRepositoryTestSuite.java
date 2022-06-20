@@ -31,7 +31,6 @@ class CartRepositoryTestSuite {
     public void shouldCreateCart() {
         //Given
         User user1 = User.builder()
-                .id(1L)
                 .name("userName1")
                 .surname("userSurname1")
                 .status(true)
@@ -39,7 +38,6 @@ class CartRepositoryTestSuite {
                 .carts(new ArrayList<>())
                 .build();
         User user2 = User.builder()
-                .id(2L)
                 .name("userName2")
                 .surname("userSurname2")
                 .status(true)
@@ -47,7 +45,6 @@ class CartRepositoryTestSuite {
                 .carts(new ArrayList<>())
                 .build();
         User user3 = User.builder()
-                .id(3L)
                 .name("userName3")
                 .surname("userSurname3")
                 .status(true)
@@ -63,27 +60,27 @@ class CartRepositoryTestSuite {
         user3.getCarts().add(cart3);
 
         //When
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
+        Long user1Id = userRepository.save(user1).getId();
+        Long user2Id = userRepository.save(user2).getId();
+        Long user3Id = userRepository.save(user3).getId();
 
-        cartRepository.save(cart1);
-        cartRepository.save(cart2);
-        cartRepository.save(cart3);
+        Long cart1Id = cartRepository.save(cart1).getId();
+        Long cart2Id = cartRepository.save(cart2).getId();
+        Long cart3Id = cartRepository.save(cart3).getId();
 
         //Then
-        assertTrue(cartRepository.findById(cart1.getId()).isPresent());
-        assertTrue(cartRepository.findById(cart2.getId()).isPresent());
-        assertTrue(cartRepository.findById(cart3.getId()).isPresent());
+        assertTrue(cartRepository.findById(cart1Id).isPresent());
+        assertTrue(cartRepository.findById(cart2Id).isPresent());
+        assertTrue(cartRepository.findById(cart3Id).isPresent());
 
         //CleanUp
-        cartRepository.deleteById(cart1.getId());
-        cartRepository.deleteById(cart2.getId());
-        cartRepository.deleteById(cart3.getId());
+        userRepository.deleteById(user1Id);
+        userRepository.deleteById(user2Id);
+        userRepository.deleteById(user3Id);
 
-//        userRepository.deleteById(user1.getId());
-//        userRepository.deleteById(user2.getId());
-//        userRepository.deleteById(user3.getId());
+        cartRepository.deleteById(cart1Id);
+        cartRepository.deleteById(cart2Id);
+        cartRepository.deleteById(cart3Id);
     }
 
     @Test
@@ -115,11 +112,11 @@ class CartRepositoryTestSuite {
         user2.getCarts().add(cart2);
 
         //When
-        userRepository.save(user1);
-        userRepository.save(user2);
+        Long user1Id = userRepository.save(user1).getId();
+        Long user2Id = userRepository.save(user2).getId();
 
-        cartRepository.save(cart1);
-        cartRepository.save(cart2);
+        Long cart1Id = cartRepository.save(cart1).getId();
+        Long cart2Id = cartRepository.save(cart2).getId();
 
         List<Cart> testListCart = new ArrayList<>();
         testListCart.add(cart1);
@@ -129,11 +126,11 @@ class CartRepositoryTestSuite {
         assertEquals(cartRepository.findAll(), testListCart);
 
         //CleanUp
-        cartRepository.deleteById(cart1.getId());
-        cartRepository.deleteById(cart2.getId());
+        userRepository.deleteById(user1Id);
+        userRepository.deleteById(user2Id);
 
-        userRepository.deleteById(user1.getId());
-        userRepository.deleteById(user2.getId());
+        cartRepository.deleteById(cart1Id);
+        cartRepository.deleteById(cart2Id);
     }
 
     @Test
@@ -141,31 +138,31 @@ class CartRepositoryTestSuite {
         //Given
         Product product1 = Product.builder().name("product1").price(1.99).group(new Group()).build();
         Product product2 = Product.builder().name("product2").price(2.99).group(new Group()).build();
-        Cart cart = new Cart();
+        Cart cart = Cart.builder().products(new ArrayList<>()).build();
 
         cart.getProducts().add(product1);
 
-        cartRepository.save(cart);
-        productRepository.save(product1);
-        productRepository.save(product2);
+        Long cartId = cartRepository.save(cart).getId();
+        Long product1Id = productRepository.save(product1).getId();
+        Long product2Id = productRepository.save(product2).getId();
 
         List<Product> testListProduct = new ArrayList<>();
         testListProduct.add(product1);
         testListProduct.add(product2);
 
         // When
-        Cart cartToUpdate = cartRepository.findById(cart.getId()).get();
+        Cart cartToUpdate = cartRepository.findById(cartId).get();
         cartToUpdate.getProducts().add(product2);
         cartRepository.save(cartToUpdate);
 
         //Then
-        assertEquals(testListProduct, cartRepository.findById(cart.getId()).get().getProducts());
-        assertTrue(cartRepository.findById(cart.getId()).get().getProducts().containsAll(testListProduct));
+        assertEquals(testListProduct, cartRepository.findById(cartId).get().getProducts());
+        assertTrue(cartRepository.findById(cartId).get().getProducts().containsAll(testListProduct));
 
         //CleanUp
-        productRepository.deleteById(product1.getId());
-        productRepository.deleteById(product2.getId());
-        cartRepository.deleteById(cart.getId());
+        productRepository.deleteById(product1Id);
+        productRepository.deleteById(product2Id);
+        cartRepository.deleteById(cartId);
     }
 
     @Test
@@ -175,11 +172,11 @@ class CartRepositoryTestSuite {
         Cart cart = Cart.builder().user(user).build();
 
         //When
-        cartRepository.save(cart);
-        cartRepository.deleteById(cart.getId());
+        Long cartId = cartRepository.save(cart).getId();
+        cartRepository.deleteById(cartId);
 
         //Then
-        assertFalse(cartRepository.findById(cart.getId()).isPresent());
+        assertFalse(cartRepository.findById(cartId).isPresent());
     }
 
     @Test
@@ -191,19 +188,19 @@ class CartRepositoryTestSuite {
 
         cart.getProducts().add(product1);
 
-        cartRepository.save(cart);
-        productRepository.save(product1);
-        productRepository.save(product2);
+        Long cartId = cartRepository.save(cart).getId();
+        Long product1Id = productRepository.save(product1).getId();
+        Long product2Id = productRepository.save(product2).getId();
 
         List<Product> testListProduct = new ArrayList<>();
         testListProduct.add(product1);
         testListProduct.add(product2);
 
         // When
-        Cart cartToUpdate = cartRepository.findById(cart.getId()).get();
+        Cart cartToUpdate = cartRepository.findById(cartId).get();
         cartToUpdate.getProducts().add(product2);
         cartRepository.save(cartToUpdate);
-        cartRepository.deleteById(cart.getId());
+        cartRepository.deleteById(cartId);
 
         //Then
         assertTrue(productRepository.existsById(product1.getId()));
