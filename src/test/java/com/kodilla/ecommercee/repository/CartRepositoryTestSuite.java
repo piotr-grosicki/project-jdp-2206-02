@@ -34,9 +34,9 @@ class CartRepositoryTestSuite {
         User user3 = new User("user3", "user3", true, 00003);
 
 
-        Cart cart1 = new Cart(user1);
-        Cart cart2 = new Cart(user2);
-        Cart cart3 = new Cart(user3);
+        Cart cart1 = Cart.builder().user(user1).build();
+        Cart cart2 = Cart.builder().user(user2).build();
+        Cart cart3 = Cart.builder().user(user3).build();
 
         user1.getCarts().add(cart1);
         user2.getCarts().add(cart2);
@@ -74,8 +74,8 @@ class CartRepositoryTestSuite {
         User user1 = new User("user1", "user1", true, 00001);
         User user2 = new User("user2", "user2", true, 00002);
 
-        Cart cart1 = new Cart(user1);
-        Cart cart2 = new Cart(user2);
+        Cart cart1 = Cart.builder().user(user1).build();
+        Cart cart2 = Cart.builder().user(user2).build();
 
         user1.getCarts().add(cart1);
         user2.getCarts().add(cart2);
@@ -105,8 +105,8 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldUpdateCart() {
         //Given
-        Product product1 = new Product("product1", 1.99, new Group());
-        Product product2 = new Product("product2", 2.99, new Group());
+        Product product1 = Product.builder().name("product1").price(1.99).group(new Group()).build();
+        Product product2 = Product.builder().name("product2").price(2.99).group(new Group()).build();
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
@@ -138,7 +138,7 @@ class CartRepositoryTestSuite {
     public void shouldDeleteCart() {
         //Given
         User user1 = new User();
-        Cart cart1 = new Cart(user1);
+        Cart cart1 = Cart.builder().user(user1).build();
 
         //When
         cartRepository.save(cart1);
@@ -151,8 +151,8 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCartNotProduct() {
         //Given
-        Product product1 = new Product("product1", 1.99, new Group("testGroup", new ArrayList<>()));
-        Product product2 = new Product("product2", 2.99, new Group("testGroup", new ArrayList<>()));
+        Product product1 = Product.builder().name("product1").price(1.99).group(new Group("testGroup", new ArrayList<>())).build();
+        Product product2 = Product.builder().name("product1").price(1.99).group(new Group("testGroup", new ArrayList<>())).build();
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
