@@ -22,11 +22,23 @@ public class ProductDbService {
         return productRepository.findById(productId).orElseThrow(ProductNotFoundException::new);
     }
 
-    public void deleteProduct(final Long productId){
-        productRepository.deleteById(productId);
+    public void deleteProduct(final Long productId) throws ProductNotFoundException{
+        if(productRepository.existsById(productId)){
+            productRepository.deleteById(productId);
+        } else {
+            throw new ProductNotFoundException();
+        }
     }
 
     public Product saveProduct(final Product product){
         return productRepository.save(product);
+    }
+
+    public Product updateProduct(final Product product) throws ProductNotFoundException{
+        if(productRepository.existsById(product.getId())){
+            return productRepository.save(product);
+        } else {
+            throw new ProductNotFoundException();
+        }
     }
 }
