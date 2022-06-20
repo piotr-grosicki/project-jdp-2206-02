@@ -31,13 +31,14 @@ class ProductRepositoryTestSuite {
     @Test
     void findAllProducts_CartShouldBeEmpty_GroupShouldNotBeEmpty() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
-        Product apple = new Product("Apple", 3.20, fruits);
-        Product banana = new Product("Banana", 4.10, fruits);
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
+        Product banana = Product.builder().name("Banana").price(4.10).group(fruits).build();
 
         //When
         productRepository.save(apple);
         productRepository.save(banana);
+        groupRepository.save(fruits);
         Long appleId = apple.getId();
         Long bananaId = banana.getId();
         List<Group> groupList = groupRepository.findAll();
@@ -59,8 +60,8 @@ class ProductRepositoryTestSuite {
     @Test
     void findProductById() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
-        Product apple = new Product("Apple", 3.20, fruits);
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
 
         //When
         groupRepository.save(fruits);
@@ -79,8 +80,8 @@ class ProductRepositoryTestSuite {
     @Test
     void updateProduct() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
-        Product apple = new Product("Apple", 3.20, fruits);
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
 
         //When
         productRepository.save(apple);
@@ -103,8 +104,8 @@ class ProductRepositoryTestSuite {
     @Test
     void deleteProductById() {
         //Given
-        Group fruits = new Group("Fruits", new ArrayList<>());
-        Product apple = new Product("Apple", 3.20, fruits);
+        Group fruits = Group.builder().name("Fruits").products(new ArrayList<>()).build();
+        Product apple = Product.builder().name("Apple").price(3.20).group(fruits).build();
 
         //When
         productRepository.save(apple);
