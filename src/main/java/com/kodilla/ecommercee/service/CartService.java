@@ -26,7 +26,7 @@ public class CartService {
     @Autowired
     private final ProductMapper productMapper;
     @Autowired
-    private final ProductService productService;
+    private final ProductDbService productService;
     @Autowired
     private final UserService userService;
 
