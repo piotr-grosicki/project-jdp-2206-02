@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.mapper;
 
 import com.kodilla.ecommercee.dto.CartDto;
+import com.kodilla.ecommercee.dto.ProductDto;
 import com.kodilla.ecommercee.entity.Cart;
 import com.kodilla.ecommercee.entity.User;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
@@ -31,8 +32,8 @@ public class CartMapper {
         } else {
             return Cart.builder()
                     .id(cartDto.getId())
-                    .products(cartDto.getProducts().stream()
-                            .map(e -> productRepository.findById(e.getId())
+                    .products(cartDto.getProductId().stream()
+                            .map(e -> productRepository.findById(e)
                                     .orElseGet(null))
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList()))
@@ -50,7 +51,9 @@ public class CartMapper {
             return new CartDto(
                     cart.getId(),
                     cart.getUser().getId(),
-                    productMapper.mapToProductDtoList(cart.getProducts())
+                    cart.getProducts().stream()
+                            .map(e -> e.getId())
+                            .collect(Collectors.toList())
             );
         }
 

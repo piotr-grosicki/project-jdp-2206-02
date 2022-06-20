@@ -25,13 +25,13 @@ class UserRepositoryTestSuite {
     void findAllTest() {
         //Given
         User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
+        Cart cartOne = Cart.builder().user(john).build();
         Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
         User sam = new User("sam", "smith", true, 54321);
-        Cart cartTwo = new Cart(sam);
+        Cart cartTwo = Cart.builder().user(sam).build();
         Order orderTwo = new Order(sam, cartTwo, OrderStatus.COMPLETED);
         User paul = new User("paul", "smith", true, 12565);
-        Cart cartThree = new Cart(paul);
+        Cart cartThree = Cart.builder().user(john).build();
         Order orderThree = new Order(paul, cartThree, OrderStatus.CANCELLED);
         john.getCarts().add(cartOne);
         john.getOrders().add(orderOne);
@@ -62,7 +62,7 @@ class UserRepositoryTestSuite {
     void findByIdTest() {
         //Given
         User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
+        Cart cartOne = Cart.builder().user(john).build();
         Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
         john.getCarts().add(cartOne);
         john.getOrders().add(orderOne);
@@ -89,7 +89,7 @@ class UserRepositoryTestSuite {
     void deleteUserTest(){
         //Given
         User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
+        Cart cartOne = Cart.builder().user(john).build();
         Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
         john.getCarts().add(cartOne);
         john.getOrders().add(orderOne);

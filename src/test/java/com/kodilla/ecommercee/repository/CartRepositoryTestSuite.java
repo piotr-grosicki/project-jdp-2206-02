@@ -24,6 +24,8 @@ class CartRepositoryTestSuite {
     private UserRepository userRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Test
     public void shouldCreateCart() {
@@ -105,9 +107,9 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldUpdateCart() {
         //Given
-        Product product1 = Product.builder().name("product1").price(1.99).group(new Group()).build();
-        Product product2 = Product.builder().name("product2").price(2.99).group(new Group()).build();
-        Cart cart = new Cart();
+        Product product1 = Product.builder().name("product1").price(1.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
+        Product product2 = Product.builder().name("product2").price(2.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
+        Cart cart = Cart.builder().build();
 
         cart.getProducts().add(product1);
 
@@ -126,7 +128,6 @@ class CartRepositoryTestSuite {
 
         //Then
         assertEquals(testListProduct, cartRepository.findById(cart.getId()).get().getProducts());
-        assertTrue(cartRepository.findById(cart.getId()).get().getProducts().containsAll(testListProduct));
 
         //CleanUp
         productRepository.deleteById(product1.getId());
@@ -163,15 +164,18 @@ class CartRepositoryTestSuite {
         productRepository.save(product1);
         productRepository.save(product2);
 
-        List testListProduct = new ArrayList<Product>();
-        testListProduct.add(product1);
-        testListProduct.add(product2);
+        List testListProduct = new ArrayList<Long>();
+        testListProduct.add(product1.getId());
+        testListProduct.add(product2.getId());
+
 
         // When
         Cart cartToUpdate = cartRepository.findById(cart.getId()).get();
         cartToUpdate.getProducts().add(product2);
         cartRepository.save(cartToUpdate);
         cartRepository.deleteById(cart.getId());
+        groupRepository.save(product1.getGroup());
+        groupRepository.save(product2.getGroup());
 
         //Then
         assertTrue(productRepository.existsById(product1.getId()));

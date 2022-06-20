@@ -28,6 +28,7 @@ public class Cart {
 
 
     @ManyToMany(mappedBy = "carts")
+    @Builder.Default
     private List<Product> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "cart")
