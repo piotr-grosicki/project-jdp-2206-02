@@ -27,21 +27,42 @@ class UserRepositoryTestSuite {
     @Test
     void findAllTest() {
         //Given
-        User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
-        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
-        User sam = new User("sam", "smith", true, 54321);
-        Cart cartTwo = new Cart(sam);
-        Order orderTwo = new Order(sam, cartTwo, OrderStatus.COMPLETED);
-        User paul = new User("paul", "smith", true, 12565);
-        Cart cartThree = new Cart(paul);
-        Order orderThree = new Order(paul, cartThree, OrderStatus.CANCELLED);
-        john.getCarts().add(cartOne);
-        john.getOrders().add(orderOne);
-        sam.getCarts().add(cartTwo);
-        sam.getOrders().add(orderTwo);
-        paul.getCarts().add(cartThree);
-        paul.getOrders().add(orderThree);
+        User user1 = User.builder()
+                .name("userName1")
+                .surname("userSurname1")
+                .status(true)
+                .userKey(1)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
+        User user2 = User.builder()
+                .name("userName2")
+                .surname("userSurname2")
+                .status(true)
+                .userKey(2)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
+        User user3 = User.builder()
+                .name("userName3")
+                .surname("userSurname3")
+                .status(true)
+                .userKey(3)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
+        Cart cartOne = Cart.builder().user(user1).build();
+        Order orderOne = new Order(user1, cartOne, OrderStatus.PENDING);
+        Cart cartTwo = Cart.builder().user(user2).build();
+        Order orderTwo = new Order(user2, cartTwo, OrderStatus.COMPLETED);
+        Cart cartThree = Cart.builder().user(user3).build();
+        Order orderThree = new Order(user3, cartThree, OrderStatus.CANCELLED);
+        user1.getCarts().add(cartOne);
+        user1.getOrders().add(orderOne);
+        user2.getCarts().add(cartTwo);
+        user2.getOrders().add(orderTwo);
+        user3.getCarts().add(cartThree);
+        user3.getOrders().add(orderThree);
 
         //When
         Long johnId = userRepository.save(john).getId();
@@ -53,19 +74,26 @@ class UserRepositoryTestSuite {
         assertEquals(3, userList.size());
 
         //Cleanup
-        userRepository.deleteById(johnId);
-        userRepository.deleteById(samId);
-        userRepository.deleteById(paulId);
+        userRepository.deleteById(user1Id);
+        userRepository.deleteById(user2Id);
+        userRepository.deleteById(user3Id);
     }
 
     @Test
     void findByIdTest() {
         //Given
-        User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
-        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
-        john.getCarts().add(cartOne);
-        john.getOrders().add(orderOne);
+        User user = User.builder()
+                .name("userName1")
+                .surname("userSurname1")
+                .status(true)
+                .userKey(1)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
+        Cart cartOne = Cart.builder().user(user).build();
+        Order orderOne = new Order(user, cartOne, OrderStatus.PENDING);
+        user.getCarts().add(cartOne);
+        user.getOrders().add(orderOne);
 
         //When
         Long johnId = userRepository.save(john).getId();
@@ -74,12 +102,12 @@ class UserRepositoryTestSuite {
         User expectedJohn = userRepository.findById(johnId).get();
 
         //Then
-        assertEquals(john.getId(), expectedJohn.getId());
-        assertEquals(john.getName(), expectedJohn.getName());
-        assertEquals(john.getSurname(), expectedJohn.getSurname());
-        assertEquals(john.getUserKey(), expectedJohn.getUserKey());
-        assertEquals(john.getOrders().size(), expectedJohn.getOrders().size());
-        assertEquals(john.getCarts().size(), expectedJohn.getCarts().size());
+        assertEquals(user.getId(), expectedJohn.getId());
+        assertEquals(user.getName(), expectedJohn.getName());
+        assertEquals(user.getSurname(), expectedJohn.getSurname());
+        assertEquals(user.getUserKey(), expectedJohn.getUserKey());
+        assertEquals(user.getOrders().size(), expectedJohn.getOrders().size());
+        assertEquals(user.getCarts().size(), expectedJohn.getCarts().size());
         assertTrue(expectedJohn.isStatus());
 
         //Cleanup
@@ -91,16 +119,23 @@ class UserRepositoryTestSuite {
     @Test
     void deleteUserTest(){
         //Given
-        User john = new User("john", "smith", true, 12345);
-        Cart cartOne = new Cart(john);
-        Order orderOne = new Order(john, cartOne, OrderStatus.PENDING);
-        john.getCarts().add(cartOne);
-        john.getOrders().add(orderOne);
+        User user = User.builder()
+                .name("userName1")
+                .surname("userSurname1")
+                .status(true)
+                .userKey(1)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
+        Cart cartOne = Cart.builder().user(user).build();
+        Order orderOne = new Order(user, cartOne, OrderStatus.PENDING);
+        user.getCarts().add(cartOne);
+        user.getOrders().add(orderOne);
 
         //When
-        userRepository.save(john);
-        Long johnId = john.getId();
-        userRepository.delete(john);
+        userRepository.save(user);
+        Long johnId = user.getId();
+        userRepository.delete(user);
         Optional<User> expectedNotJohn = userRepository.findById(johnId);
 
         //Then
