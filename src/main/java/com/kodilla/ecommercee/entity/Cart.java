@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.entity;
 
-import com.kodilla.ecommercee.dto.ProductDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
 @Builder
 @AllArgsConstructor
@@ -25,7 +26,6 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
-
 
     @ManyToMany(mappedBy = "carts")
     @Builder.Default
