@@ -4,7 +4,7 @@ import com.kodilla.ecommercee.dto.OrderDto;
 import com.kodilla.ecommercee.entity.Order;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
-import com.kodilla.ecommercee.service.CartService;
+import com.kodilla.ecommercee.service.CartDbService;
 import com.kodilla.ecommercee.service.UserDbService;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class OrderMapper {
 
     UserDbService userDbService;
-    CartService cartDbService;
+    CartDbService cartDbService;
 
     public Order mapToOrder(final OrderDto orderDto) throws UserNotFoundException, CartNotFoundException {
         return Order.builder()
