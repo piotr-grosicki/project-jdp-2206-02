@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.exception.GroupNotFoundException;
 import com.kodilla.ecommercee.exception.OrderNotFoundException;
 import com.kodilla.ecommercee.exception.ProductNotFoundException;
@@ -22,6 +23,12 @@ public class GlobalHttpErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleOrderNotFoundException(OrderNotFoundException exception) {
         return new ResponseEntity<>("Order with provided ID does not exist", HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(CartNotFoundException.class)
+    public ResponseEntity<Object> handleCartNotFoundException(CartNotFoundException exception) {
+        return new ResponseEntity<>("Cart with provided ID does not exist", HttpStatus.NOT_FOUND);
+    }
+
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<Object> handleProductNotFoundException(ProductNotFoundException exception) {

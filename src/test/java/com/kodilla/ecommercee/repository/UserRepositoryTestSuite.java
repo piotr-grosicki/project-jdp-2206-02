@@ -29,6 +29,7 @@ class UserRepositoryTestSuite {
     @Test
     void findAllTest() {
         //Given
+
         User user1 = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -84,6 +85,7 @@ class UserRepositoryTestSuite {
     @Test
     void findByIdTest() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -121,6 +123,7 @@ class UserRepositoryTestSuite {
     @Test
     void deleteUserTest(){
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")

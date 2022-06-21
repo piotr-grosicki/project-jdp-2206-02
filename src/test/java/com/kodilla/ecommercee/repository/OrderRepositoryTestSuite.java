@@ -33,6 +33,7 @@ public class OrderRepositoryTestSuite {
                 .status(true)
                 .userKey(1)
                 .build();
+      
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
 
@@ -55,6 +56,7 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testUpdateOrderDeliveryStatus() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -85,6 +87,7 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testCreateOrderRelationshipWithUserEntity() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -120,6 +123,7 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testCreateMultipleOrdersRelationshipWithUserEntity() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -128,6 +132,7 @@ public class OrderRepositoryTestSuite {
                 .carts(new ArrayList<>())
                 .orders(new ArrayList<>())
                 .build();
+      
         Cart cart1 = Cart.builder().user(user).build();
         Cart cart2 = Cart.builder().user(user).build();
         Cart cart3 = Cart.builder().user(user).build();
@@ -168,6 +173,7 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testCreateOrderRelationshipWithCartEntity() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -176,6 +182,7 @@ public class OrderRepositoryTestSuite {
                 .orders(new ArrayList<>())
                 .carts(new ArrayList<>())
                 .build();
+      
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
         user.getCarts().add(cart);
@@ -202,12 +209,14 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testDeleteOrder() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
                 .build();
+      
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
 
@@ -231,13 +240,15 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testDeleteOrderDoesNotDeleteUser() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
                 .build();
-        Cart cart = Cart.builder().user(user).build();
+
+      Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
 
         //When
@@ -261,12 +272,14 @@ public class OrderRepositoryTestSuite {
     @Test
     public void testDeleteOrderDoesNotDeleteCart() {
         //Given
+
         User user = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
                 .build();
+      
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
 

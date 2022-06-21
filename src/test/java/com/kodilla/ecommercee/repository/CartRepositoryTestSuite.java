@@ -26,10 +26,13 @@ class CartRepositoryTestSuite {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Test
     public void shouldCreateCart() {
         //Given
+
         User user1 = User.builder()
                 .name("userName1")
                 .surname("userSurname1")
@@ -51,6 +54,7 @@ class CartRepositoryTestSuite {
                 .userKey(3)
                 .carts(new ArrayList<>())
                 .build();
+
         Cart cart1 = Cart.builder().user(user1).build();
         Cart cart2 = Cart.builder().user(user2).build();
         Cart cart3 = Cart.builder().user(user3).build();
@@ -86,6 +90,7 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldReadCart() {
         //Given
+
         User user1 = User.builder()
                 .id(1L)
                 .name("userName1")
@@ -136,9 +141,11 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldUpdateCart() {
         //Given
-        Product product1 = Product.builder().name("product1").price(1.99).group(new Group()).build();
-        Product product2 = Product.builder().name("product2").price(2.99).group(new Group()).build();
-        Cart cart = Cart.builder().products(new ArrayList<>()).build();
+        Product product1 = Product.builder().name("product1").price(1.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
+        Product product2 = Product.builder().name("product2").price(2.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
+        Cart cart = Cart.builder().build();
+
+
 
         cart.getProducts().add(product1);
 
@@ -156,8 +163,8 @@ class CartRepositoryTestSuite {
         cartRepository.save(cartToUpdate);
 
         //Then
-        assertEquals(testListProduct, cartRepository.findById(cartId).get().getProducts());
-        assertTrue(cartRepository.findById(cartId).get().getProducts().containsAll(testListProduct));
+        assertEquals(testListProduct, cartRepository.findById(cart.getId()).get().getProducts());
+
 
         //CleanUp
         productRepository.deleteById(product1Id);
@@ -168,6 +175,7 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCart() {
         //Given
+
         User user = new User();
         Cart cart = Cart.builder().user(user).build();
 
@@ -182,8 +190,10 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCartNotProduct() {
         //Given
+
         Product product1 = Product.builder().name("product1").price(1.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
         Product product2 = Product.builder().name("product2").price(2.99).group(Group.builder().name("testGroup").products(new ArrayList<>()).build()).build();
+
         Cart cart = new Cart();
 
         cart.getProducts().add(product1);
@@ -192,15 +202,18 @@ class CartRepositoryTestSuite {
         Long product1Id = productRepository.save(product1).getId();
         Long product2Id = productRepository.save(product2).getId();
 
-        List<Product> testListProduct = new ArrayList<>();
-        testListProduct.add(product1);
-        testListProduct.add(product2);
+        List testListProduct = new ArrayList<Long>();
+        testListProduct.add(product1.getId());
+        testListProduct.add(product2.getId());
 
         // When
         Cart cartToUpdate = cartRepository.findById(cartId).get();
         cartToUpdate.getProducts().add(product2);
         cartRepository.save(cartToUpdate);
-        cartRepository.deleteById(cartId);
+        cartRepository.deleteById(cart.getId());
+        groupRepository.save(product1.getGroup());
+        groupRepository.save(product2.getGroup());
+
 
         //Then
         assertTrue(productRepository.existsById(product1.getId()));

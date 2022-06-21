@@ -47,7 +47,7 @@ public class User {
     private List<Cart> carts = new ArrayList<>();
 
     @OneToMany(
-            fetch = FetchType.EAGER,
+//            fetch = FetchType.EAGER,
             targetEntity = Order.class,
             mappedBy = "user"
     )

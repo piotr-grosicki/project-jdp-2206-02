@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,8 +10,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "carts")
@@ -26,6 +27,7 @@ public class Cart {
     private User user;
 
     @ManyToMany(mappedBy = "carts")
+    @Builder.Default
     private List<Product> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "cart")
