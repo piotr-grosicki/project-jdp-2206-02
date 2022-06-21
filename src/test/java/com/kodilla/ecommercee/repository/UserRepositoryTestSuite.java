@@ -7,21 +7,24 @@ import com.kodilla.ecommercee.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Transactional
 @SpringBootTest
 class UserRepositoryTestSuite {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Test
     void findAllTest() {
@@ -64,12 +67,9 @@ class UserRepositoryTestSuite {
         user3.getOrders().add(orderThree);
 
         //When
-        userRepository.save(user1);
-        userRepository.save(user2);
-        userRepository.save(user3);
-        Long user1Id = user1.getId();
-        Long user2Id = user2.getId();
-        Long user3Id = user3.getId();
+        Long user1Id = userRepository.save(user1).getId();
+        Long user2Id = userRepository.save(user2).getId();
+        Long user3Id = userRepository.save(user3).getId();
         List<User> userList = userRepository.findAll();
 
         //Then
@@ -98,8 +98,9 @@ class UserRepositoryTestSuite {
         user.getOrders().add(orderOne);
 
         //When
-        userRepository.save(user);
-        Long userId = user.getId();
+        Long userId = userRepository.save(user).getId();
+        cartRepository.save(cartOne);
+        orderRepository.save(orderOne);
         User expectedJohn = userRepository.findById(userId).get();
 
         //Then
@@ -112,6 +113,8 @@ class UserRepositoryTestSuite {
         assertTrue(expectedJohn.isStatus());
 
         //Cleanup
+        orderRepository.deleteById(orderOne.getId());
+        cartRepository.deleteById(cartOne.getId());
         userRepository.deleteById(userId);
     }
 
@@ -132,10 +135,9 @@ class UserRepositoryTestSuite {
         user.getOrders().add(orderOne);
 
         //When
-        userRepository.save(user);
-        Long johnId = user.getId();
-        userRepository.delete(user);
-        Optional<User> expectedNotJohn = userRepository.findById(johnId);
+        Long userId = userRepository.save(user).getId();
+        userRepository.deleteById(userId);
+        Optional<User> expectedNotJohn = userRepository.findById(userId);
 
         //Then
         assertFalse(expectedNotJohn.isPresent());

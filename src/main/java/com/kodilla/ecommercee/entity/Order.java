@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "orderId")
     private Long id;
 
