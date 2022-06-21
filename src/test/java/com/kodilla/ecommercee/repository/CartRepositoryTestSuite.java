@@ -20,8 +20,10 @@ class CartRepositoryTestSuite {
 
     @Autowired
     private CartRepository cartRepository;
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -29,12 +31,32 @@ class CartRepositoryTestSuite {
 
     @Test
     public void shouldCreateCart() {
-
         //Given
-        User user1 = new User("user1", "user1", true, 00001);
-        User user2 = new User("user2", "user2", true, 00002);
-        User user3 = new User("user3", "user3", true, 00003);
 
+        User user1 = User.builder()
+                .id(1L)
+                .name("userName1")
+                .surname("userSurname1")
+                .status(true)
+                .userKey(1)
+                .carts(new ArrayList<>())
+                .build();
+        User user2 = User.builder()
+                .id(2L)
+                .name("userName2")
+                .surname("userSurname2")
+                .status(true)
+                .userKey(2)
+                .carts(new ArrayList<>())
+                .build();
+        User user3 = User.builder()
+                .id(3L)
+                .name("userName3")
+                .surname("userSurname3")
+                .status(true)
+                .userKey(3)
+                .carts(new ArrayList<>())
+                .build();
 
         Cart cart1 = Cart.builder().user(user1).build();
         Cart cart2 = Cart.builder().user(user2).build();
@@ -53,28 +75,43 @@ class CartRepositoryTestSuite {
         cartRepository.save(cart2);
         cartRepository.save(cart3);
 
-
         //Then
-
         assertTrue(cartRepository.findById(cart1.getId()).isPresent());
         assertTrue(cartRepository.findById(cart2.getId()).isPresent());
         assertTrue(cartRepository.findById(cart3.getId()).isPresent());
 
-        //Clean Up
+        //CleanUp
         cartRepository.deleteById(cart1.getId());
         cartRepository.deleteById(cart2.getId());
         cartRepository.deleteById(cart3.getId());
 
-        userRepository.deleteById(user1.getId());
-        userRepository.deleteById(user2.getId());
-        userRepository.deleteById(user3.getId());
+//        userRepository.deleteById(user1.getId());
+//        userRepository.deleteById(user2.getId());
+//        userRepository.deleteById(user3.getId());
     }
 
     @Test
     public void shouldReadCart() {
         //Given
-        User user1 = new User("user1", "user1", true, 00001);
-        User user2 = new User("user2", "user2", true, 00002);
+
+        User user1 = User.builder()
+                .id(1L)
+                .name("userName1")
+                .surname("userSurname1")
+                .status(true)
+                .userKey(1)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
+        User user2 = User.builder()
+                .id(2L)
+                .name("userName2")
+                .surname("userSurname2")
+                .status(true)
+                .userKey(2)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
+                .build();
 
         Cart cart1 = Cart.builder().user(user1).build();
         Cart cart2 = Cart.builder().user(user2).build();
@@ -89,7 +126,7 @@ class CartRepositoryTestSuite {
         cartRepository.save(cart1);
         cartRepository.save(cart2);
 
-        List testListCart = new ArrayList<Cart>();
+        List<Cart> testListCart = new ArrayList<>();
         testListCart.add(cart1);
         testListCart.add(cart2);
 
@@ -117,7 +154,7 @@ class CartRepositoryTestSuite {
         productRepository.save(product1);
         productRepository.save(product2);
 
-        List testListProduct = new ArrayList<Product>();
+        List<Product> testListProduct = new ArrayList<>();
         testListProduct.add(product1);
         testListProduct.add(product2);
 
@@ -138,17 +175,18 @@ class CartRepositoryTestSuite {
     @Test
     public void shouldDeleteCart() {
         //Given
-        User user1 = new User();
-        Cart cart1 = Cart.builder().user(user1).build();
+
+        User user = new User();
+        Cart cart = Cart.builder().user(user).build();
 
         //When
-        cartRepository.save(cart1);
-        cartRepository.deleteById(cart1.getId());
+        cartRepository.save(cart);
+        cartRepository.deleteById(cart.getId());
 
         //Then
-        assertFalse(cartRepository.findById(cart1.getId()).isPresent());
-
+        assertFalse(cartRepository.findById(cart.getId()).isPresent());
     }
+
     @Test
     public void shouldDeleteCartNotProduct() {
         //Given
@@ -168,7 +206,6 @@ class CartRepositoryTestSuite {
         testListProduct.add(product1.getId());
         testListProduct.add(product2.getId());
 
-
         // When
         Cart cartToUpdate = cartRepository.findById(cart.getId()).get();
         cartToUpdate.getProducts().add(product2);
@@ -181,8 +218,4 @@ class CartRepositoryTestSuite {
         assertTrue(productRepository.existsById(product1.getId()));
         assertTrue(productRepository.existsById(product1.getId()));
     }
-
 }
-
-
-
