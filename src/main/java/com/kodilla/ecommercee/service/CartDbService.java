@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CartService {
+public class CartDbService {
 
     @Autowired
     private final CartRepository cartRepository;
