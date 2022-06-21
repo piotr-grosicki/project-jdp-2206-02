@@ -1,7 +1,5 @@
 package com.kodilla.ecommercee.dto;
 
-import com.kodilla.ecommercee.entity.Cart;
-import com.kodilla.ecommercee.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,8 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OrderDto {
     private Long orderId;
-    private User user;
-    private Cart cart;
+    private Long userId;
+    private Long cartId;
     private LocalDateTime created;
     private OrderStatus orderStatus;
 }
