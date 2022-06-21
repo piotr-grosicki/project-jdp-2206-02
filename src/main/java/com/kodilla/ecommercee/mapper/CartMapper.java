@@ -4,6 +4,7 @@ import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.ProductDto;
 import com.kodilla.ecommercee.entity.Cart;
 import com.kodilla.ecommercee.entity.User;
+import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
@@ -26,7 +27,7 @@ public class CartMapper {
     private ProductMapper productMapper;
 
 
-    public Cart mapToCart(final CartDto cartDto) {
+    public Cart mapToCart(final CartDto cartDto) throws UserNotFoundException {
         if (cartDto.getId() == null) {
             return new Cart();
         } else {
@@ -38,16 +39,13 @@ public class CartMapper {
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList()))
                     .user(userRepository.findById(cartDto.getId()).orElseThrow(
-                            () -> new IllegalArgumentException("Client not found")))
+                            () -> new UserNotFoundException()))
                     .build();
 
         }
     }
 
     public CartDto mapToCartDto(final Cart cart) {
-        if (cart.getId() == null) {
-            throw new IllegalArgumentException("Cart doesn't exist");
-        } else {
             return new CartDto(
                     cart.getId(),
                     cart.getUser().getId(),
@@ -57,12 +55,9 @@ public class CartMapper {
             );
         }
 
-    }
-
-    public List<CartDto> mapToCartDtoList(final List<Cart> cartList) {
+    public List<CartDto> mapToCartDtoList(final List<Cart> cartList)  {
         return cartList.stream()
                 .map(this::mapToCartDto)
                 .collect(Collectors.toList());
     }
-
-    }
+}
