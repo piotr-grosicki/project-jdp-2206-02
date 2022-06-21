@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -46,8 +48,8 @@ public class User {
     )
     private List<Cart> carts = new ArrayList<>();
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(
-//            fetch = FetchType.EAGER,
             targetEntity = Order.class,
             mappedBy = "user"
     )
