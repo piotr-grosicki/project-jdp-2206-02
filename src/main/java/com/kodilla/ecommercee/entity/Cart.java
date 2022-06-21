@@ -33,4 +33,8 @@ public class Cart {
 
     @OneToOne(mappedBy = "cart")
     private Order order;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

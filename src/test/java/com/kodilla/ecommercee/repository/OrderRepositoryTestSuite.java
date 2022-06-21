@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -90,10 +92,14 @@ public class OrderRepositoryTestSuite {
                 .name("userName1")
                 .surname("userSurname1")
                 .status(true)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
                 .userKey(1)
                 .build();
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
+        user.getCarts().add(cart);
+        user.getOrders().add(order);
 
         //When
         User testUser = userRepository.save(user);
@@ -123,6 +129,8 @@ public class OrderRepositoryTestSuite {
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
+                .carts(new ArrayList<>())
+                .orders(new ArrayList<>())
                 .build();
       
         Cart cart1 = Cart.builder().user(user).build();
@@ -131,6 +139,12 @@ public class OrderRepositoryTestSuite {
         Order order1 = new Order(user, cart1, OrderStatus.PENDING);
         Order order2 = new Order(user, cart2, OrderStatus.IN_DELIVERY);
         Order order3 = new Order(user, cart3, OrderStatus.COMPLETED);
+        user.getCarts().add(cart1);
+        user.getCarts().add(cart2);
+        user.getCarts().add(cart3);
+        user.getOrders().add(order1);
+        user.getOrders().add(order2);
+        user.getOrders().add(order3);
 
         //When
         User testUser = userRepository.save(user);
@@ -165,10 +179,14 @@ public class OrderRepositoryTestSuite {
                 .surname("userSurname1")
                 .status(true)
                 .userKey(1)
+                .orders(new ArrayList<>())
+                .carts(new ArrayList<>())
                 .build();
       
         Cart cart = Cart.builder().user(user).build();
         Order order = new Order(user, cart, OrderStatus.PENDING);
+        user.getCarts().add(cart);
+        user.getOrders().add(order);
 
         //When
         User testUser = userRepository.save(user);
