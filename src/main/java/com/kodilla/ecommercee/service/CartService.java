@@ -4,10 +4,7 @@ import com.kodilla.ecommercee.dto.ProductDto;
 import com.kodilla.ecommercee.entity.Cart;
 import com.kodilla.ecommercee.entity.Product;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
-import com.kodilla.ecommercee.exception.OrderNotFoundException;
 import com.kodilla.ecommercee.exception.ProductNotFoundException;
-import com.kodilla.ecommercee.exception.UserNotFoundException;
-import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.repository.CartRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
@@ -53,7 +50,6 @@ public class CartService {
 
     public boolean deleteProductFromCart(Long cartId, Long productId)
             throws CartNotFoundException, ProductNotFoundException {
-        if (cartRepository.existsById(cartId)) {
             Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new CartNotFoundException());
             Product productToDelete = null;
             if (productRepository.existsById(productToDelete.getId())) {
@@ -63,7 +59,7 @@ public class CartService {
             } else {
                 throw new ProductNotFoundException();
             }
-        }
+
         return true;
     }
 
